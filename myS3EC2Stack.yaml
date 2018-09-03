@@ -1,0 +1,22 @@
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    DependsOn:
+      - MyBazingaBucket
+    Properties:
+      ImageId: ami-b70554c8
+      AvailabilityZone: us-east-1a
+      InstanceType: t2.micro
+      Tags:
+        -
+          Key: Name
+          Value: MyYabaDabaStack
+  
+  MyBazingaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl:  PublicRead
+      Tags:
+        -
+          Key: Name
+          Value: MyYabaDabaStack
