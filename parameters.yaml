@@ -1,0 +1,33 @@
+
+# Parameters Section of the Cloudformation Template
+Parameters:
+  EC2SecurityGroups:
+    Description: Security Groups
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    ConstraintDescription: Must be EC2 Secuirty Groups
+  EC2AccessKey:
+    Description: EC2 Instance Access Key 
+    #    NoEcho: true
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be an existing KeyPair
+  InstanceType:
+    Description: Webserver EC2 Instance
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t1.micro
+      - t2.nano
+      - t2.micro
+      - t2.small
+    ConstraintDescription: must be a valid instance type
+
+# Resources Section of the Cloudformation Template
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: us-east-1a
+      InstanceType: !Ref InstanceType
+      ImageId: ami-b70554c8
+      KeyName: !Ref EC2AccessKey
+      SecurityGroupIds: !Ref EC2SecurityGroups
